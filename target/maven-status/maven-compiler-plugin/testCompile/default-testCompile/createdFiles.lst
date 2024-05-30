@@ -1,0 +1,5 @@
+com\automation\pages\LoginPage.class
+com\automation\hooks\Hooks.class
+com\automation\pages\ProductsPage.class
+com\automation\RunCucumberTest.class
+com\automation\stepdefinitions\LoginSteps.class

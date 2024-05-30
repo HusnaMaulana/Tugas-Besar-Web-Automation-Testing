@@ -1,0 +1,32 @@
+-------------------------------------------------------------------------------
+Test set: com.automation.RunCucumberTest
+-------------------------------------------------------------------------------
+Tests run: 9, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 53.97 s <<< FAILURE! -- in com.automation.RunCucumberTest
+Login With Invalid Username to SauceDemo.Login with incorrect username -- Time elapsed: 6.529 s <<< FAILURE!
+org.junit.ComparisonFailure: expected:<Epic sadface: [Error Username doesn't match]> but was:<Epic sadface: [Username and password do not match any user in this service]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at com.automation.stepdefinitions.LoginSteps.i_should_see_an_error_message_username(LoginSteps.java:77)
+	at ✽.I should see an error message username(file:///D:/Sem6/Automation-Web-Testing/src/test/resources/loginInvalidUsername.feature:7)
+
+Login With Empty Username and Password to SauceDemo.Login with Empty Field -- Time elapsed: 4.519 s <<< FAILURE!
+org.junit.ComparisonFailure: expected:<Epic sadface: [You need Username & Password !]> but was:<Epic sadface: [Username is required]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at com.automation.stepdefinitions.LoginSteps.i_should_see_an_error_message_needed(LoginSteps.java:70)
+	at ✽.I should see an error message needed(file:///D:/Sem6/Automation-Web-Testing/src/test/resources/loginemptyfield.feature:7)
+
+Login With Empty Password to SauceDemo.Login with empty password -- Time elapsed: 5.626 s <<< FAILURE!
+org.junit.ComparisonFailure: expected:<Epic sadface: [You need Password !]> but was:<Epic sadface: [Password is required]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at com.automation.stepdefinitions.LoginSteps.i_should_see_an_error_message_Password_is_required(LoginSteps.java:84)
+	at ✽.I should see an error message Password is required(file:///D:/Sem6/Automation-Web-Testing/src/test/resources/loginemptypassword.feature:7)
+
+Login With Empty Username to SauceDemo.Login with empty Username -- Time elapsed: 4.985 s <<< FAILURE!
+org.junit.ComparisonFailure: expected:<Epic sadface: [You need Username !]> but was:<Epic sadface: [Username is required]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at com.automation.stepdefinitions.LoginSteps.i_should_see_an_error_message_Username_is_required(LoginSteps.java:91)
+	at ✽.I should see an error message Username is required(file:///D:/Sem6/Automation-Web-Testing/src/test/resources/loginemptyusername.feature:7)
+
