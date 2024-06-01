@@ -23,7 +23,7 @@ Feature: Delete User API Test
 
   Scenario: Deleting User by Invalid User ID (Deleted User ID)
     Given App id delete request "665b0de2c728e2049bf7490a"
-    And Id user delete request "60d0fe4f5311236168a10a00"
+    And Id user delete request "60d0fe4f5311236168a10a09"
     When Sending DELETE request
     Then Response status code of delete request should be 404
     And Response body of delete request should be "{\"error\":\"RESOURCE_NOT_FOUND\"}"

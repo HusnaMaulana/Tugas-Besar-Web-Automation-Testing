@@ -40,7 +40,7 @@ public class CheckoutSteps {
         loginPage.clickLoginButton();
     }
 
-    @And("Already adding two item {string} and {string} to cart")
+    @And("Already adding two items {string} and {string} to cart")
     public void alreadyAddingTwoItemToCart(String prodOne, String prodTwo) {
         checkPage.addProduct(prodOne);
         checkPage.addProduct(prodTwo);

@@ -16,7 +16,6 @@ Feature: Checkout Process
     And Click continue button
     And Click finish button
     Then Click back home button
-    
 
   Scenario: Checkout with firstName field empty
     Given Already login on website sauce demo

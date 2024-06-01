@@ -27,6 +27,9 @@ public class ProductsPage {
     @FindBy(xpath = "//div[@class='inventory_container']")
     private WebElement productList;
     
+    @FindBy(className = "shopping_cart_link")
+    private WebElement shoppingCartLink;
+
     public ProductsPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
@@ -59,6 +62,10 @@ public class ProductsPage {
         productImage.click();
     }
 
+    public void clickCartIcon() {
+        shoppingCartLink.click();
+    }
+
     // Tambahkan metode untuk mencari dan mengklik produk berdasarkan teks
     public void clickProductByName(String productName) {
         try {
@@ -67,5 +74,10 @@ public class ProductsPage {
         } catch (NoSuchElementException e) {
             System.out.println("Product not found: " + productName);
         }
+    }
+
+    // Metode untuk mengklik tautan keranjang belanja
+    public void clickShoppingCartLink() {
+        shoppingCartLink.click();
     }
 }

@@ -59,6 +59,11 @@ public class CartSteps {
         Assert.assertFalse(cartPage.verifyRemoveProd());
     }
 
+    @When("Click on the cart icon")
+    public void clickCartIconButton() {
+        productsPage.clickCartIcon();
+    }
+
     @When("Click continue shopping button")
     public void clickContinueShoppingButton() {
         cartPage.continueShopBtn();
