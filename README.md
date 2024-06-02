@@ -1,11 +1,18 @@
-# Automation-Web-Testing
-Projek automation web testing untuk menguji fitur login dan logout pada tautan https://www.saucedemo.com/. Proyek ini dikembangkan menggunakan bahasa java (pembuatan script test) dan maven (build management)
+# Tugas Besar Web Automation And API
+Projek automation web testing untuk menguji keseluruhan fitur tautan https://www.saucedemo.com/ dan juga menguji API untuk user controller pada tautan https://dummyapi.io/docs/user. Proyek ini dikembangkan menggunakan bahasa java (pembuatan script test) dan maven (build management)
 
+# Anggota Kelompok
+- Danu Mahesa - 211524037 (username github : Danum05)
+- Husna Maulana - 211524045 (username github : HusnaMaulana)
+- Rofaul Akrom Hendrawan - 211524061 (username github : rofaulakrom)
+- 
 # Build With
 Proyek pengujian otomatis melibatkan tiga buah library yang dibutuhkan.
 - Junit
 - Cucumber
 - Selenium
+- TestNG
+- RestAssured
 
 # Getting Started
 
@@ -51,124 +58,120 @@ Proses konfigurasi project menggunakan build automation pada File build.gradle.
             <version>7.0.0</version> <!-- Versi terbaru -->
             <scope>test</scope>
         </dependency>
+   ```
+      d. Rest Assured, library untuk melakukan API testing
+   ```
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.4.0</version>
+        </dependency>
+
+      e. TestNG, library untuk melakukan pengujian dalam bahasa java yang menyediakan lebih banyak fitur  
+   ```
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.4.0</version>
+            <scope>test</scope>
+        </dependency>
    ``` 
 
 # Struture Project Test
 Tujuan project adalah proses pengujian automation web, sehingga kode program tersimpan dalam package test. Adapun struktur package sbb:
 
 ```
-Automation-Web-Testing/
+Tugas-Besar-Web-Automation/
+├── .vscode
 ├── src
 │   ├── main
 │   │   └── java
 │   │       └── com
 │   │           └── automation
 │   │               └── Main.java
-│   ├── test
-│   │   ├── java
-│   │   │   └── com
-│   │   │       └── automation
-│   │   │           ├── hooks
-│   │   │           │   └── Hooks.java
-│   │   │           ├── pages
-│   │   │           │   ├── LoginPage.java
-│   │   │           │   └── ProductsPage.java
-│   │   │           ├── stepdefinitions
-│   │   │           │   └── LoginSteps.java
-│   │   │           └── RunCucumberTest.java
-│   │   └── resources
-│   │       ├── loginemptyfield.feature
-│   │       ├── loginemptypassword.feature
-│   │       ├── loginemptyusername.feature
-│   │       ├── logininvalidpassword.feature
-│   │       ├── loginInvalidUsername.feature
-│   │       ├── loginInvalidUsernamepassword.feature
-│   │       ├── loginvalid.feature
-│   │       ├── logout.feature
-│   │       └── showloginpage.feature
+│   └── test
+│       ├── java
+│       │   └── com
+│       │       ├── api
+│       │       │   └── stepdefinitions
+│       │       │       ├── DeleteUserSteps.java
+│       │       │       ├── GetUserSteps.java
+│       │       │       ├── PostUserSteps.java
+│       │       │       └── PutUserSteps.java
+│       │       ├── automation
+│       │       │   ├── hooks
+│       │       │   │   └── Hooks.java
+│       │       │   ├── pages
+│       │       │   │   ├── CartPage.java
+│       │       │   │   ├── CheckoutPage.java
+│       │       │   │   ├── DetailProductPage.java
+│       │       │   │   ├── LoginPage.java
+│       │       │   │   ├── MenuPage.java
+│       │       │   │   └── ProductsPage.java
+│       │       │   └── stepdefinitions
+│       │       │       ├── CartSteps.java
+│       │       │       ├── CheckoutSteps.java
+│       │       │       ├── DetailProductSteps.java
+│       │       │       ├── LoginSteps.java
+│       │       │       ├── MenuSteps.java
+│       │       │       └── ProductSteps.java
+│       │       └── RunCucumberTest.java
+│       └── resources
+│           ├── api
+│           │   ├── DeleteUserApi.feature
+│           │   ├── GetUserApi.feature
+│           │   ├── PostUserApi.feature
+│           │   └── PutUserApi.feature
+│           └── automation
+│               ├── cart.feature
+│               ├── checkout.feature
+│               ├── detailproduct.feature
+│               ├── end_to_end.feature
+│               ├── login.feature
+│               ├── logout.feature
+│               ├── menu.feature
+│               └── product.feature
 ├── target
 │   ├── classes
-│   │   └── com
-│   │       └── automation
-│   │           └── Main.class
+│   ├── generated-sources
+│   ├── generated-test-sources
 │   ├── maven-status
-│   │   └── maven-compiler-plugin
-│   │       ├── compile
-│   │       └── testCompile
 │   ├── surefire-reports
-│   │   ├── 2024-05-17T22-32-40_041.dumpstream
-│   │   ├── 2024-05-18T21-06-59_542.dumpstream
-│   │   ├── com.automation.RunCucumberTest.txt
-│   │   └── TEST-com.automation.RunCucumberTest.xml
-│   ├── test-classes
-│   │   └── com
-│   │       ├── loginemptyfield.feature
-│   │       ├── loginemptypassword.feature
-│   │       ├── loginemptyusername.feature
-│   │       ├── logininvalidpassword.feature
-│   │       ├── loginInvalidUsername.feature
-│   │       ├── loginInvalidUsernamepassword.feature
-│   │       ├── loginvalid.feature
-│   │       ├── logout.feature
-│   │       └── showloginpage.feature
-│   └── cucumber.html
+│   └── test-classes
 ├── msedgedriver.exe
 ├── pom.xml
 └── README.md
+
 ```
-
-
-
-1.	src/main/java/com/automation/Main.java: Berkas utama yang menjalankan aplikasi Java.
-2.	src/test/java/com/automation/hooks/Hooks.java: Berkas yang mengandung hook untuk tes Cucumber.
-3.	src/test/java/com/automation/pages:
-   	- LoginPage.java: Kelas yang merepresentasikan halaman login.
-  	- ProductsPage.java: Kelas yang merepresentasikan halaman produk.
-5.	src/test/java/com/automation/stepdefinitions/LoginSteps.java: Berkas yang mengandung definisi langkah-langkah untuk skenario Cucumber terkait login.
-6.	src/test/java/com/automation/RunCucumberTest.java: Berkas yang menjalankan tes Cucumber.
-7.	src/test/resources: Direktori yang mengandung berkas-berkas fitur Cucumber.
-   	- loginemptyfield.feature: Skenario pengujian untuk login dengan field kosong.
-  	- loginemptypassword.feature: Skenario pengujian untuk login dengan password kosong.
-  	- loginemptyusername.feature: Skenario pengujian untuk login dengan username kosong.
-  	- logininvalidpassword.feature: Skenario pengujian untuk login dengan password tidak valid.
-  	- loginInvalidUsername.feature: Skenario pengujian untuk login dengan username tidak valid.
-  	- loginInvalidUsernamepassword.feature: Skenario pengujian untuk login dengan username dan password tidak valid.
-  	- loginvalid.feature: Skenario pengujian untuk login dengan kredensial yang valid.
-  	- logout.feature: Skenario pengujian untuk logout.
-  	- showloginpage.feature: Skenario pengujian untuk menampilkan halaman login.
-9.	target: Direktori keluaran Maven yang berisi hasil kompilasi dan laporan pengujian.
-    	- classes: Berkas kelas yang sudah dikompilasi.
-  	- maven-status: Informasi status Maven.
-  	- surefire-reports: Laporan pengujian Surefire.
-  	- test-classes: Berkas kelas hasil kompilasi tes.
-  	- cucumber.html: Laporan hasil tes Cucumber dalam format HTML.
-11.	msedgedriver.exe: Eksekusi driver untuk Microsoft Edge.
-12.	pom.xml: Berkas konfigurasi Maven.
-13.	README.md: Berkas dokumentasi proyek.
+- **.vscode**: Direktori ini berisi pengaturan spesifik editor untuk Visual Studio Code.
+- **src/main/java/com/automation**: Direktori ini berisi kode sumber utama proyek.
+    - **Main.java**: Berkas utama yang berisi metode `main()` untuk menjalankan aplikasi Java.
+- **src/test/java/com/automation**: Direktori ini berisi kode sumber pengujian proyek.
+    - **api/stepdefinitions**: Direktori yang berisi definisi langkah-langkah (step definitions) untuk skenario pengujian API.
+    - **automation/hooks**: Direktori yang berisi hook (potongan kode yang dijalankan sebelum atau sesudah skenario) untuk tes menggunakan kerangka kerja Cucumber.
+    - **automation/pages**: Direktori yang berisi kelas-kelas yang merepresentasikan halaman-halaman dalam aplikasi.
+    - **automation/stepdefinitions**: Direktori yang berisi definisi langkah-langkah (step definitions) untuk skenario pengujian yang menggunakan kerangka kerja Cucumber.
+- **src/test/resources**: Direktori yang berisi berkas-berkas fitur Cucumber, yang merupakan deskripsi perilaku sistem dalam format yang dapat dibaca oleh Cucumber.
+- **target**: Direktori keluaran dari Maven yang berisi hasil kompilasi, laporan pengujian, dan berkas-berkas lainnya.
+- **msedgedriver.exe**: Berkas eksekusi driver untuk mengotomatisasi pengujian di Microsoft Edge.
+- **pom.xml**: Berkas konfigurasi Maven untuk proyek ini.
 
 Note.
 1. Setiap kali menjalankan automation testing, akan terbentuk hasil test report yang dapat diakses pada folder Automation-Web-Testing\target\cucumber.html
 
 # Workflow
-1. Langkah-Langkah Membuat Skrip Tes 
-2. Buat direktori tes.
-   - Pastikan Anda memiliki direktori yang sesuai untuk menyimpan file pengujian. Struktur folder yang ditentukan menyediakan direktori untuk pengujian di bawah app/src/test/java.
-3. Membuat kelas uji.
-   - Buat kelas tes di direktori tes untuk menguji kelas utama. Pada testing yang kami uji, kami membuat UserApiTestGet.java untuk menguji fungsionalitas pengambilan data API, UserApiTestPut.java untuk menguji fungsionalitas pembaruan data API, UserApiTestPost.java unntuk menguji fungsionalitas penambahan data API, dan UserApiTestDelete.java untuk menguji fungsionalitas penghapusan data  API.
-4. Gunakan kerangka pengujian.
-Kelas pengujian yang Anda buat menggunakan kerangka pengujian seperti JUnit. Anda dapat menambahkan anotasi JUnit seperti @Test ke metode yang ingin Anda uji. salah satu contohnya yaitu :  
+1. Persiapan Direktori Tes:
+- Buatlah direktori khusus untuk menyimpan skrip tes.
+- Tambahkan file .feature pada src\test\resources\api untuk skenario pengujian api menggunakan format Gherkin.
+- Tambahkan file .feature pada src\test\resources\automation untuk skenario pengujian web automation menggunakan format Gherkin.
 
-```
-@Test
-    public void testCase1_03() {
-	. . .
-}
-```
-
-Menulis kasus uji.
-Tulis kode dalam metode yang dianotasi sebagai @Test untuk menguji fungsionalitas  kelas atau metode yang diinginkan. Anda dapat menggunakan berbagai metode penegasan JUnit, seperti penegasanEquals dan penegasanTrue, untuk memastikan bahwa kelas atau metode berperilaku seperti yang Anda harapkan.
-Jalankan kasus uji.
-Setelah membuat kasus uji, Anda dapat menjalankannya  menggunakan perintah build Gradle (./gradlew build/gradle build). Anda biasanya dapat menjalankan kasus pengujian dengan menjalankan perintah ./gradlew test/gradle test dari terminal di dalam direktori proyek Anda. perintah tersebut akan menjalankan semua kasus uji yang ditemukan dalam proyek  dan melaporkan hasilnya.
+2. Pembuatan Kelas Uji:
+- Buat kelas pengujian pada src\test\java\com\automation\stepdefinitions untuk skenario pengujian web automation
+- Jika ingin menambahkan interaksi pada website tambahkan file pada src\test\java\com\automation\pages
+- Buat kelas pengujian pada src\test\java\com\api\stepdefinitions untuk skenario pengujian api
+  
+3. Menjalankan file pengujian:
+- buka file runner pada src\test\java\com\RunCucumberTest.java untuk menjalankan script pengujian
  
 # How to Run Execution Testing
 Proses menjalankan eksekusi testing terdiri dari dua cara, yaitu Terminal dan RunCucumberTest
@@ -182,11 +185,22 @@ mvn clean test
 Cukup dengan melakukan running test menggunakan icon run IDE pada Class RunCucumberTest
 
 # Software Under test
-pengujian Web dilakukan pada halaman login terdapat 2 fitur yang akan di cek yaitu :
+pengujian Web yang dilakukan mencakup fitur :
 * fitur login
+* fitur product
+* fitur menu
+* fitur detail product
+* fitur cart
+* fitur checkout
 * fitur logout
 
-# Test Case
+pengujian API yang dilakukan mencakup fitur :
+* fitur get user
+* fitur post user
+* fitur put user
+* fitur delete user
+
+# Test Case Automation Web Testing
 Pembuatan test case meliputi test positif dan test negatif, yaitu
 ## Test Case untuk fitur login
 1. Menguji Tampil Halaman Login
@@ -198,5 +212,60 @@ Pembuatan test case meliputi test positif dan test negatif, yaitu
 7. Menguji jika field dengan username dan password tidak ada dalam database
 8. Menguji jika username dan password kosong
 
+## Test Case untuk fitur product
+1. Menguji menekan tombol twitter
+2. Menguji filter sorting product by name
+3. Menguji filter sorting product by price low to high
+   
+## Test Case untuk fitur menu
+1. Menguji menekan tombol menu
+2. Menguji menekan tombol about pada side bar
+3. Menguji menekan tombol all item pada side bar
+   
+## Test Case untuk fitur detail produk
+1. Menguji menekan gambar pada bagian product
+2. Menguji menekan nama pada bagian product
+3. Menguji masuk ke halaman detail product dan kembali ke halaman product
+
+## Test Case untuk fitur cart
+1. Menguji bagian cart dengan tidak membeli item
+2. Menguji bagian cart dengan membeli lebih dari satu item
+3. Menguji masuk ke halaman cart dan kembali ke halaman product
+
+## Test Case untuk fitur checkout
+1. Menguji checkout succes
+2. Menguji halaman checkout dengan firstname kosong
+3. Menguji halaman checkout dengan lastname kosong
+   
 ## Test Case untuk fitur logout
-9. Menguji logout berhasil
+1. Menguji logout berhasil
+
+# Test Case Automation API
+Pembuatan test case meliputi test positif dan test negatif, yaitu
+## Test Case untuk Get User
+1. Melakukan permintaan GET data Pengguna tanpa proses otentikasi
+2. Melakukan permintaan GET Pengguna dengan ID Pengguna yang valid
+3. Melakukan permintaan GET Pengguna dengan ID Pengguna yang salah
+4. Melakukan permintaan GET Pengguna dengan ID Pengguna yang tidak ditemukan
+5. Melakukan permintaan GET data Pengguna dengan App id dan User Id yang tidak valid
+   
+## Test Case untuk Post User
+1. Membuat pengguna baru dengan detail yang valid
+2. Membuat pengguna baru hanya dengan bidang firstName
+3. Membuat pengguna baru hanya dengan bidang lastName
+4. Membuat pengguna baru hanya dengan bidang email
+5. Membuat pengguna baru dengan bidang firstName, tetapi email sudah digunakan sebelumnya
+   
+## Test Case untuk Put User
+1. Memperbarui Pengguna dengan Data yang Valid
+2. Menambahkan Nama Belakang ke Pengguna
+3. Mengubah Judul menjadi 'mr' untuk Pengguna
+4. Mengubah Judul menjadi 'ms' untuk Pengguna
+5. Mengubah Judul menjadi 'mrs' untuk Pengguna
+
+## Test Case untuk Delete User
+1. Menghapus Data Pengguna tanpa Otorisasi
+2. Menghapus Pengguna dengan ID Pengguna yang Valid
+3. Menghapus Pengguna dengan ID Pengguna yang Salah
+4. Menghapus Pengguna dengan ID Pengguna yang Tidak Ditemukan
+5. Menghapus Pengguna dengan ID Pengguna dan APP ID yang Tidak Valid
