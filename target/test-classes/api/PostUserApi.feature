@@ -2,8 +2,8 @@ Feature: Post User API Tests
 
   Scenario: Create a new user with valid details
     Given I have user data
-      | firstName | lastName | email                          |
-      | John      | Doe      | john.doe1234@example.com       |
+      | firstName | lastName | email                               |
+      | John      | Doe      | john.doe1a9383laa@example.com       |
     When I send a POST request to create a user
     Then The response code is 200
     And The response should match JSONSchema "create-schema.json"
@@ -26,8 +26,8 @@ Scenario: Create a new user with only lastName field
 
   Scenario: Create a new user with only email field
       Given I have user data
-        | email            |
-        | John11@gmail.com   |
+        | email                   |
+        | Johna11aaaa@gmail.com   |
       When I send a POST request to create a user
       Then The response code is 400
       And The response body content is "{\"error\":\"BODY_NOT_VALID\",\"data\":{\"lastName\":\"Path `lastName` is required.\",\"firstName\":\"Path `firstName` is required.\"}}"

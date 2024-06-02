@@ -1,6 +1,6 @@
 Feature: End to end Testing
 
-  Scenario: Checkout Succes
+  Scenario: End to End Testing
     Given Already login on website sauce demo
     When I click the product image
     Then I should be redirected to the detail product page
