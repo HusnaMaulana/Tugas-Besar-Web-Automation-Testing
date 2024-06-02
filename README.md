@@ -1,5 +1,5 @@
 # Automation-Web-Testing
-Projek automation testing api untuk menguji management user pada tautan https://dummyapi.io/. Proyek ini dikembangkan menggunakan bahasa java (pembuatan script test) dan Gradle (build management)
+Projek automation web testing untuk menguji fitur login dan logout pada tautan https://www.saucedemo.com/. Proyek ini dikembangkan menggunakan bahasa java (pembuatan script test) dan maven (build management)
 
 # Build With
 Proyek pengujian otomatis melibatkan tiga buah library yang dibutuhkan.
@@ -51,272 +51,152 @@ Proses konfigurasi project menggunakan build automation pada File build.gradle.
             <version>7.0.0</version> <!-- Versi terbaru -->
             <scope>test</scope>
         </dependency>
-   ```
-```    
+   ``` 
 
 # Struture Project Test
-Tujuan project adalah proses pengujian automation web dan api, sehingga kode program tersimpan dalam package test. Adapun struktur package sbb:
-```
-API-Testing/
-├── .gradle/
-├── .vscode/
-├── app/
-│   ├── build/
-│   │   ├── classes/
-│   │   │   ├── java/
-│   │   │   │   ├── main/
-│   │   │   │   │   └── test/
-│   │   │   │   │       └── api/
-│   │   │   │   │           └── App.class
-│   │   │   │   └── test/
-│   │   │   │       └── test/
-│   │   │   │           └── api/
-│   │   │   │               ├── UserApiTestDelete.class
-│   │   │   │               ├── UserApiTestGet.class
-│   │   │   │               ├── UserApiTestPost.class
-│   │   │   │               └── UserApiTestPut.class
-│   │   ├── generated/
-│   │   │   └── sources/
-│   │   │       ├── annotationProcessor/
-│   │   │       │   └── java/
-│   │   │       │       ├── main/
-│   │   │       │       └── test/
-│   │   │       ├── headers/
-│   │   │       │   └── java/
-│   │   │       │       ├── main/
-│   │   │       │       └── test/
-│   │   │       ├── main/
-│   │   │       └── test/
-│   │   ├── resources/
-│   │   └── tmp/
-│   │       ├── compileJava/
-│   │       │   └── previous-compilation-data.bin
-│   │       └── compileTestJava/
-│   │           └── previous-compilation-data.bin
-│   ├── src/
-│   │  ├──── main/
-│   │  │   └── java/
-│   │  │       └── test/
-│   │  │           └── api/
-│   │  │               └── App.java
-│   │  └── test/
-│   │      └── java/
-│   │          └── test/
-│   │              └── api/
-│   │                  ├── UserApiTestDelete.java
-│   │                  ├── UserApiTestGet.java
-│   │                  ├── UserApiTestPost.java
-│   │                  └── UserApiTestPut.java
-│   ├── build.gradle
-├── gradle/
-│   └── wrapper/
-│       ├── gradle-wrapper.jar
-│       └── gradle-wrapper.properties
-├── .gitattributes
-├── .gitignore
-├── gradlew
-├── gradlew.bat
-├── README.md
-└── settings.gradle
+Tujuan project adalah proses pengujian automation web, sehingga kode program tersimpan dalam package test. Adapun struktur package sbb:
 
-    
+```
+Automation-Web-Testing/
+├── src
+│   ├── main
+│   │   └── java
+│   │       └── com
+│   │           └── automation
+│   │               └── Main.java
+│   ├── test
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── automation
+│   │   │           ├── hooks
+│   │   │           │   └── Hooks.java
+│   │   │           ├── pages
+│   │   │           │   ├── LoginPage.java
+│   │   │           │   └── ProductsPage.java
+│   │   │           ├── stepdefinitions
+│   │   │           │   └── LoginSteps.java
+│   │   │           └── RunCucumberTest.java
+│   │   └── resources
+│   │       ├── loginemptyfield.feature
+│   │       ├── loginemptypassword.feature
+│   │       ├── loginemptyusername.feature
+│   │       ├── logininvalidpassword.feature
+│   │       ├── loginInvalidUsername.feature
+│   │       ├── loginInvalidUsernamepassword.feature
+│   │       ├── loginvalid.feature
+│   │       ├── logout.feature
+│   │       └── showloginpage.feature
+├── target
+│   ├── classes
+│   │   └── com
+│   │       └── automation
+│   │           └── Main.class
+│   ├── maven-status
+│   │   └── maven-compiler-plugin
+│   │       ├── compile
+│   │       └── testCompile
+│   ├── surefire-reports
+│   │   ├── 2024-05-17T22-32-40_041.dumpstream
+│   │   ├── 2024-05-18T21-06-59_542.dumpstream
+│   │   ├── com.automation.RunCucumberTest.txt
+│   │   └── TEST-com.automation.RunCucumberTest.xml
+│   ├── test-classes
+│   │   └── com
+│   │       ├── loginemptyfield.feature
+│   │       ├── loginemptypassword.feature
+│   │       ├── loginemptyusername.feature
+│   │       ├── logininvalidpassword.feature
+│   │       ├── loginInvalidUsername.feature
+│   │       ├── loginInvalidUsernamepassword.feature
+│   │       ├── loginvalid.feature
+│   │       ├── logout.feature
+│   │       └── showloginpage.feature
+│   └── cucumber.html
+├── msedgedriver.exe
+├── pom.xml
+└── README.md
 ```
 
 
- `.gradle/`: Direktori ini berisi file-file cache dan metadata yang digunakan oleh Gradle selama proses build.
-`.vscode/`: Direktori ini berisi konfigurasi spesifik untuk lingkungan pengembangan Visual Studio Code (VSCode).
-`app/`:
-   - `build/`:
-     - `classes/java/`: Direktori ini berisi file-file kelas Java yang telah dikompilasi, baik untuk kode sumber utama (`main/`) maupun kode pengujian (`test/`).
-     - `generated/sources/`: Direktori ini berisi kode sumber yang dihasilkan secara otomatis selama proses build, seperti file-file yang dihasilkan oleh prosesor anotasi (`annotationProcessor/`) dan header (`headers/`).
-     - `resources/`: Direktori ini berisi file-file sumber daya (resources) yang digunakan oleh aplikasi.
-     - `tmp/`: Direktori ini berisi file-file sementara yang digunakan selama proses kompilasi (`compileJava/` dan `compileTestJava/`).
-   - `src/`:
-     - `main/java/test/api/`: Direktori ini berisi kode sumber utama dari aplikasi, terutama kelas `App.java`.
-     - `test/java/test/api/`: Direktori ini berisi kode sumber untuk pengujian aplikasi, seperti kelas-kelas `UserApiTestDelete.java`, `UserApiTestGet.java`, `UserApiTestPost.java`, dan `UserApiTestPut.java`.
-   - `build.gradle`: File konfigurasi Gradle untuk aplikasi, yang berisi informasi tentang dependensi, tugas-tugas build, dan pengaturan lainnya.
 
-
- `gradle/wrapper/`:
-   - `gradle-wrapper.jar`: File JAR yang digunakan untuk menjalankan Gradle Wrapper, yang memungkinkan distribusi dan eksekusi Gradle tanpa menginstal Gradle secara lokal.
-   - `gradle-wrapper.properties`: File konfigurasi untuk Gradle Wrapper.
-
-
-`.gitattributes`: File konfigurasi untuk Git yang menentukan cara Git mengelola berbagai jenis file dalam repositori.
-
-
-`.gitignore`: File yang berisi daftar pola-pola file dan direktori yang akan diabaikan oleh Git, misalnya file-file hasil build atau file-file konfigurasi lokal.
-
-
-`gradlew` dan `gradlew.bat`: Skrip untuk menjalankan Gradle dari baris perintah di lingkungan Unix/Linux dan Windows, secara berturut-turut.
-
-
-`README.md`: File Markdown yang biasanya berisi informasi penting tentang proyek, seperti deskripsi, instruksi instalasi, dan dokumentasi.
-
-
-`settings.gradle`: File konfigurasi Gradle yang berisi informasi tentang modul-modul yang ada dalam proyek.
-
+1.	src/main/java/com/automation/Main.java: Berkas utama yang menjalankan aplikasi Java.
+2.	src/test/java/com/automation/hooks/Hooks.java: Berkas yang mengandung hook untuk tes Cucumber.
+3.	src/test/java/com/automation/pages:
+   	- LoginPage.java: Kelas yang merepresentasikan halaman login.
+  	- ProductsPage.java: Kelas yang merepresentasikan halaman produk.
+5.	src/test/java/com/automation/stepdefinitions/LoginSteps.java: Berkas yang mengandung definisi langkah-langkah untuk skenario Cucumber terkait login.
+6.	src/test/java/com/automation/RunCucumberTest.java: Berkas yang menjalankan tes Cucumber.
+7.	src/test/resources: Direktori yang mengandung berkas-berkas fitur Cucumber.
+   	- loginemptyfield.feature: Skenario pengujian untuk login dengan field kosong.
+  	- loginemptypassword.feature: Skenario pengujian untuk login dengan password kosong.
+  	- loginemptyusername.feature: Skenario pengujian untuk login dengan username kosong.
+  	- logininvalidpassword.feature: Skenario pengujian untuk login dengan password tidak valid.
+  	- loginInvalidUsername.feature: Skenario pengujian untuk login dengan username tidak valid.
+  	- loginInvalidUsernamepassword.feature: Skenario pengujian untuk login dengan username dan password tidak valid.
+  	- loginvalid.feature: Skenario pengujian untuk login dengan kredensial yang valid.
+  	- logout.feature: Skenario pengujian untuk logout.
+  	- showloginpage.feature: Skenario pengujian untuk menampilkan halaman login.
+9.	target: Direktori keluaran Maven yang berisi hasil kompilasi dan laporan pengujian.
+    	- classes: Berkas kelas yang sudah dikompilasi.
+  	- maven-status: Informasi status Maven.
+  	- surefire-reports: Laporan pengujian Surefire.
+  	- test-classes: Berkas kelas hasil kompilasi tes.
+  	- cucumber.html: Laporan hasil tes Cucumber dalam format HTML.
+11.	msedgedriver.exe: Eksekusi driver untuk Microsoft Edge.
+12.	pom.xml: Berkas konfigurasi Maven.
+13.	README.md: Berkas dokumentasi proyek.
 
 Note.
-1. Setiap kali menjalankan automation testing, akan terbentuk hasil test report yang dapat diakses pada folder test-api\app\build\reports\tests\test\index.html
+1. Setiap kali menjalankan automation testing, akan terbentuk hasil test report yang dapat diakses pada folder Automation-Web-Testing\target\cucumber.html
 
 # Workflow
-Langkah-Langkah Membuat Skrip Tes 
-Buat direktori tes.
-Pastikan Anda memiliki direktori yang sesuai untuk menyimpan file pengujian. Struktur folder yang ditentukan menyediakan direktori untuk pengujian di bawah app/src/test/java.
-Membuat kelas uji.
-Buat kelas tes di direktori tes untuk menguji kelas utama. Pada testing yang kami uji, kami membuat UserApiTestGet.java untuk menguji fungsionalitas pengambilan data API, UserApiTestPut.java untuk menguji fungsionalitas pembaruan data API, UserApiTestPost.java unntuk menguji fungsionalitas penambahan data API, dan UserApiTestDelete.java untuk menguji fungsionalitas penghapusan data  API.
-Gunakan kerangka pengujian.
+1. Langkah-Langkah Membuat Skrip Tes 
+2. Buat direktori tes.
+   - Pastikan Anda memiliki direktori yang sesuai untuk menyimpan file pengujian. Struktur folder yang ditentukan menyediakan direktori untuk pengujian di bawah app/src/test/java.
+3. Membuat kelas uji.
+   - Buat kelas tes di direktori tes untuk menguji kelas utama. Pada testing yang kami uji, kami membuat UserApiTestGet.java untuk menguji fungsionalitas pengambilan data API, UserApiTestPut.java untuk menguji fungsionalitas pembaruan data API, UserApiTestPost.java unntuk menguji fungsionalitas penambahan data API, dan UserApiTestDelete.java untuk menguji fungsionalitas penghapusan data  API.
+4. Gunakan kerangka pengujian.
 Kelas pengujian yang Anda buat menggunakan kerangka pengujian seperti JUnit. Anda dapat menambahkan anotasi JUnit seperti @Test ke metode yang ingin Anda uji. salah satu contohnya yaitu :  
+
+```
 @Test
     public void testCase1_03() {
 	. . .
 }
-
+```
 
 Menulis kasus uji.
 Tulis kode dalam metode yang dianotasi sebagai @Test untuk menguji fungsionalitas  kelas atau metode yang diinginkan. Anda dapat menggunakan berbagai metode penegasan JUnit, seperti penegasanEquals dan penegasanTrue, untuk memastikan bahwa kelas atau metode berperilaku seperti yang Anda harapkan.
 Jalankan kasus uji.
 Setelah membuat kasus uji, Anda dapat menjalankannya  menggunakan perintah build Gradle (./gradlew build/gradle build). Anda biasanya dapat menjalankan kasus pengujian dengan menjalankan perintah ./gradlew test/gradle test dari terminal di dalam direktori proyek Anda. perintah tersebut akan menjalankan semua kasus uji yang ditemukan dalam proyek  dan melaporkan hasilnya.
  
-
-
-
-
-
-
 # How to Run Execution Testing
-Proses menjalankan eksekusi testing terdiri dari dua cara, yaitu Terminal dan Class testRunner
+Proses menjalankan eksekusi testing terdiri dari dua cara, yaitu Terminal dan RunCucumberTest
 
 ## Terminal
 Proses menjalankan eksekusi testing melalui terminal dengan menjalankan kode berikut:
 ```
-./gradlew test
-```
-Namun, sebelumnya harus dilakukan build terlebih dahulu agar library dependency sudah terkonfigurasi pada project. Kode build sbb:
-```
-./gradlew build
+mvn clean test
 ```
 ## Class TestRunner
-Cukup dengan melakukan running test menggunakan icon run IDE pada Class TestRunner 
-
-## Persiapan Data
-Sebelum menjalankan test case, diperlukan persiapan data test: 
-1. Pastikan App-id yang digunakan valid 
-2. Pastikan id user valid saat menguji update user, delete user
-3. Ubah parameter id user untuk update dan delete 
+Cukup dengan melakukan running test menggunakan icon run IDE pada Class RunCucumberTest
 
 # Software Under test
-pengujian API dilakukan dengan menggunakan api management user yang diakses pada tautan Dummy API - User Data Controllers
-* hit api get profile user by id
-* hit api post new user
-* hit api update user by id
-* hit api delete user by id
+pengujian Web dilakukan pada halaman login terdapat 2 fitur yang akan di cek yaitu :
+* fitur login
+* fitur logout
 
 # Test Case
 Pembuatan test case meliputi test positif dan test negatif, yaitu
-## Test Case API User Method Post
-Operasi tidak punya authorization
-field lain terisi, dan field first name di isi huruf dengan panjang antara 2-50
-field lain terisi, dan field last name di isi huruf dengan panjang antara 2-50
-field lain terisi, dan field title di isi dengan mr
-field lain terisi, dan field title di isi dengan ms
-field lain terisi, dan field title di isi dengan mrs
-field lain terisi, dan field title di isi dengan miss
-field lain terisi, dan field title di isi dengan dr
-field lain terisi, dan field gander di isi dengan male
-field lain terisi, dan field gander di isi dengan female
-field lain terisi, dan field email di isi email yang belum terdaftar 
-field lain terisi, dan field DateOfBirtth di isi dengan data yang valid
-field lain terisi, dan field Phone di isi dengan format +62 
-field lain terisi, dan field Phone di isi dengan format 08
-field lain terisi, dan field picture di isi data URL valid
-field lain terisi, dan field location di isi dengan data valid
-user laki-laki, email sudah terdaftar
-user perempuan, email sudah terdaftar
-field lain terisi, kecuali titlel diisi kosong
-field lain terisi, kecuali first name kosong
-field lain terisi, kecuali last name kosong
-field lain terisi, kecuali gender diisi kosong
-field lain terisi, kecuali email diisi kosong
-field lain terisi, kecuali dateOfBirth diisi kosong
-field lain terisi, kecuali phone diisi kosong
-field lain terisi, kecuali picture diisi kosong
-field lain terisi, kecuali location diisi kosong
-semua field diisi kosong
-field lain benar, format first name invalid (first name diisi lebih dari 50 karakter atau dibawah 2 karakter)
-field lain benar, format first name invalid (first name diisi angka atau simbol )
-field lain benar, format last name invalid (last name diisi lebih dari 50 karakter atau dibawah 2 karakter)
-field lain benar, format last name nvalid (first name diisi angka atau simbol )
-field lain benar, format email invalid (menggunakan @, tetapi nama sudah terdaftar)
-field lain benar, format email invalid (tanpa menggunakan @)
-field lain benar, format phone invalid (menggunakan huruf)
-field lain benar, format tanggal tidak benar (29/02/2003)
-field lain benar namun data gender invalid, yaitu selain "male" dan "female"
-field lain benar namun data title invalid, yaitu selain "mr", "ms", "mrs", "miss", "dr"
-field lain benar namun data URL tidak valid
-field lain benar namun data location tidak valid
+## Test Case untuk fitur login
+1. Menguji Tampil Halaman Login
+2. Menguji Login Berhasil
+3. Menguji Field Password Tidak Terisi
+4. Menguji Field Password Tidak Sinkron dengan Username
+5. Menguji Field dengan Username kosong
+6. Menguji Jika field dengan username tidak ada dalam database
+7. Menguji jika field dengan username dan password tidak ada dalam database
+8. Menguji jika username dan password kosong
 
-## Test Case API User Method Get
-Operasi tidak punya authorization
-app-id valid, dan user id ada pada sistem
-app-id valid, dan user id tidak ada pada sistem
-app-id valid, dan user id tidak sesuai format
-api-id tidak valid, dan user id ada pada sistem
-
-## Test Case API User Method Put
-Pemeriksaan update user tanpa mengatur app-id pada header request
-Mengubah beberapa field data user dengan input data yang valid dan id yang terdaftar
-Mengubah semua field data user dengan input data yang valid dan id yang terdaftar
-Mengubah field "firstName" pada data user dengan input data yang valid dan id yang terdaftar
-Mengubah field "lastName" pada data user dengan input data yang valid dan id yang terdaftar
-Mengubah isi field "title" dengan "mr"  pada data user dengan input data yang valid dan id yang terdaftar
-Mengubah isi field "title" dengan "ms"  pada data user dengan input data yang valid dan id yang terdaftar
-Mengubah isi field "title" dengan "mrs"  pada data user dengan input data yang valid dan id yang terdaftar
-Mengubah isi field "title" dengan "miss"  pada data user dengan input data yang valid dan id yang terdaftar
-Mengubah isi field "title" dengan "dr"  pada data user dengan input data yang valid dan id yang terdaftar
-Mengubah isi field "title" dengan ""  pada data user dengan input data yang valid dan id yang terdaftar
-Mengubah isi field "gender" dengan "male"  pada data user dengan input data yang valid dan id yang terdaftar
-Mengubah isi field "gender" dengan "female"  pada data user dengan input data yang valid dan id yang terdaftar
-Mengubah isi field "gender" dengan "other"  pada data user dengan input data yang valid dan id yang terdaftar
-Mengubah isi field "gender" dengan ""  pada data user dengan input data yang valid dan id yang terdaftar
-Mengubah isi field "email" dengan format email yang valid dan id yang terdaftar
-Mengubah isi field "dateOfBirth" dengan format yang valid dan id yang terdaftar
-Mengubah isi field "phone" dengan format yang valid dan id yang terdaftar
-Mengubah isi field "picture" dengan format yang valid dan id yang terdaftar
-melakukan update user dengan mengubah object location  pada sub field street diisi dengan input karakter dalam range yang valid, dengan id yang valid dan terdaftar.
-melakukan update user dengan mengubah object location  pada sub field city diisi dengan input karakter dalam range yang valid, dengan id yang valid dan terdaftar.
-melakukan update user dengan mengubah object location  pada sub field state diisi dengan input karakter dalam range yang valid, dengan id yang valid dan terdaftar.
-melakukan update user dengan mengubah object location  pada sub field country diisi dengan input karakter dalam range yang valid, dengan id yang valid dan terdaftar.
-Mengubah field "firstName" pada data user dengan input data bertipe integer dan id yang terdaftar
-Mengubah field "lastName" pada data user dengan input data bertipe integer dan id yang terdaftar
-Mengubah Field "title" diisi dr dengan tanpa tanda ""
-Mengubah Field "gender" diisi male dengan tanpa tanda ""
-Mengubah isi field "email" dengan format email yang invalid dan id yang terdaftar
-Mengubah Field "dateOfBirthday" dengan format invalid (tidak mengikuti format dd/mm/yyyy)
-Mengubah Field "picture" diisi dengan tanpa menggunakan ""
-Mengubah Field "street" pada objek "location" diisi dengan tipe data integer
-Mengubah Field "city" pada objek "location" diisi dengan tipe data integer
-Mengubah Field "state" pada objek "location" diisi dengan tipe data integer
-Mengubah Field "country" pada objek "location" diisi dengan tipe data integer
-Mengubah isi Field "firstName" dengan input diluar range karakter yang valid
-Mengubah isi Field "lastName" dengan input diluar range karakter yang valid
-Field "title" diisi string selain ("mr", "ms", "mrs", "miss", "dr", "")
-Field "gender" diisi string selain ("male", "female", "other", "")
-Field "dateOfBirth" diisi tanggal pada tahun sebelum 1900
-Field "dateOfBirth" diisi tanggal setelah hari ini
-Field "street" pada objek "location" diisi dengan input diluar range karakter yang valid
-Field "city" pada objek "location" diisi dengan input diluar range karakter yang valid
-Field "state" pada objek "location" diisi dengan input diluar range karakter yang valid
-Field "country" pada objek "location" diisi dengan input diluar range karakter yang valid
-semua field diisi benar, parameter tidak terdaftar
-
-## Test Case API User Method Delete
-Operasi tidak punya authorization
-app-id valid, dan user id ada pada sistem
-app-id valid, dan user id tidak ada pada sistem
-app-id valid, dan user id tidak sesuai format
-api-id tidak valid, dan user id ada pada sistem
-
-
-
+## Test Case untuk fitur logout
+9. Menguji logout berhasil
