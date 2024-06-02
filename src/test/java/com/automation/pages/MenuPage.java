@@ -1,7 +1,11 @@
 package com.automation.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 public class MenuPage {
     private WebDriver webDriver;
@@ -20,7 +24,11 @@ public class MenuPage {
     public final By ALL_ITEMS_LINK = By.id("inventory_sidebar_link");
 
     public void clickLogoutButton() {
-        webDriver.findElement(LOGOUT_BUTTON).click();
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10)); // menunggu maksimal 10 detik
+        wait.until(ExpectedConditions.elementToBeClickable(LOGOUT_BUTTON));
+        JavascriptExecutor js = (JavascriptExecutor) webDriver;
+        js.executeScript("arguments[0].scrollIntoView(true);", webDriver.findElement(LOGOUT_BUTTON));
+        js.executeScript("arguments[0].click();", webDriver.findElement(LOGOUT_BUTTON));
     }
 
     // Method to click on the close menu button

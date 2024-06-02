@@ -1,13 +1,9 @@
 Feature: Checkout Process
   As a user, I want to efficiently checkout products on the SauceDemo website.
 
-  Background:
-    Given I am on the SauceDemo login page
-    And The user is logged in
-
   Scenario: Checkout Succes
     Given Already login on website sauce demo
-    And Already adding two item "onesie" and "allthethings" to cart
+    And Already adding two items "onesie" and "allthethings" to cart
     Then Already on cart page
     When User Remove one item
     And Click checkout button
@@ -19,7 +15,7 @@ Feature: Checkout Process
 
   Scenario: Checkout with firstName field empty
     Given Already login on website sauce demo
-    And Already adding two item "onesie" and "allthethings" to cart
+    And Already adding two items "onesie" and "allthethings" to cart
     Then Already on cart page
     When User Remove one item
     And Click checkout button
@@ -30,7 +26,7 @@ Feature: Checkout Process
 
   Scenario: Checkout with lastName field empty
     Given Already login on website sauce demo
-    And Already adding two item "onesie" and "allthethings" to cart
+    And Already adding two items "onesie" and "allthethings" to cart
     Then Already on cart page
     When User Remove one item
     And Click checkout button

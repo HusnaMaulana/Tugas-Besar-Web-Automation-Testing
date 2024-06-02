@@ -7,8 +7,8 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-    features = "src/test/resources/cart.feature",
-    glue = {"com.automation.stepdefinitions"},
+    features = {"src/test/resources/api", "src/test/resources/automation"},
+    glue = {"com.api.stepdefinitions", "com.automation.stepdefinitions"},
     plugin = {"html:target/cucumber.html"}
 )
 

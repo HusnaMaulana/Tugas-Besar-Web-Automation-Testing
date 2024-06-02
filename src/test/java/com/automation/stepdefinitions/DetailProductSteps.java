@@ -59,6 +59,11 @@ public class DetailProductSteps {
         assertTrue(driver.getCurrentUrl().contains("inventory-item.html?id=4"));
     }
 
+    @When("I click back to product button")
+    public void i_click_the_back_to_product() {
+        detailProductPage.clickBackButton();
+    }
+
     @After
     public void tearDown() {
         Hooks.tearDown();
