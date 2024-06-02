@@ -5,7 +5,7 @@ Projek automation web testing untuk menguji keseluruhan fitur tautan https://www
 - Danu Mahesa - 211524037 (username github : Danum05)
 - Husna Maulana - 211524045 (username github : HusnaMaulana)
 - Rofaul Akrom Hendrawan - 211524061 (username github : rofaulakrom)
-- 
+  
 # Build With
 Proyek pengujian otomatis melibatkan tiga buah library yang dibutuhkan.
 - Junit
